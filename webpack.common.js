@@ -11,13 +11,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
 
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/template.html',
-      //title is taken from the template
-    }),
-  ],
-
   module: {
     rules: [
       {
@@ -34,6 +27,10 @@ module.exports = {
         generator: {
           filename: 'images/[name][hash][ext][query]',
         },
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
