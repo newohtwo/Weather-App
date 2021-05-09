@@ -143,6 +143,7 @@ header img {
 #current {
   display: flex;
   justify-content: center;
+  margin-left: 2%;
 }
 
 #current-img {
@@ -150,10 +151,10 @@ header img {
 }
 
 #current-temp {
-  font-size: 16rem;
+  font-size: 13rem;
 }
 #current-temp-method {
-  font-size: 5rem;
+  font-size: 4rem;
   position: fixed;
   cursor: pointer;
 }

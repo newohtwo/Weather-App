@@ -3,9 +3,10 @@ const UI = (() => {
   const currentCityName = document.querySelector('#city-name');
   const currentTemp = document.querySelector('#current-temp');
   const currentImg = document.querySelector('#current-img');
-  const currentFeelLike = document.querySelector();
 
   function setCityName(name) {
     currentCityName.textContent = name;
   }
+
+  function addElementToMain(element) {}
 })();

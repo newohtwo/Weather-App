@@ -8,21 +8,18 @@
 //create the 2 call thingy
 import dataController from './DataController';
 const api = (() => {
-  //call the api using city name to get lon and alt data
-  async function getCoordinates(cityName) {
+  //return citys weather for today using name
+  async function getTodaysWeather(cityName) {
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=658b8fa777dbd0b431e0120139bc7e13`,
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=658b8fa777dbd0b431e0120139bc7e13`,
         { mode: 'cors' }
       );
       if (response.status === 404) {
         throw 'couldnt find the city';
       }
-
-      const data = await response.json();
-      let lat = data.coord.lat;
-      let lon = data.coord.lon;
-      getWeeklyWeather(lat, lon);
+      //return data
+      return await response.json();
     } catch (error) {
       console.log(
         error + ' ' + 'unexpected error while fetching for long and lat'
@@ -37,25 +34,38 @@ const api = (() => {
         `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=metric&appid=658b8fa777dbd0b431e0120139bc7e13`,
         { mode: 'cors' }
       );
-      console.log(response);
+
       if (response.status === 404) {
         console.log('couldnt find the city');
         return;
       }
-
-      const data = await response.json();
-      dataController.setData(data);
-      return data;
+      //return data
+      return await response.json();
     } catch (error) {
       console.log(error);
     }
   }
 
-  (function setDefualtCity() {
-    // getCoordinates("london");
-  })();
+  //return the weather for the next 7 days
+  async function weekWeatherUsingCName(name) {
+    try {
+      let weatherArr = [];
+      const tData = await getTodaysWeather(name);
+      let lat = tData.coord.lat;
+      let lon = tData.coord.lon;
+      const wData = await getWeeklyWeather(lat, lon);
+      weatherArr.push(tData);
+      weatherArr.push(wData);
+
+      return weatherArr;
+      //call here for dataSave functions
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return {
-    searchCity: getCoordinates,
+    fetchWeather: weekWeatherUsingCName,
   };
 })();
 
