@@ -5,6 +5,7 @@ import drizzle from '../assets/cloudy_rain.svg';
 import rain from '../assets/rain.svg';
 import snow from '../assets/snow.svg';
 import haze from '../assets/haze.svg';
+import clear from '../assets/clear.svg';
 
 import ui from './UI';
 import api from './WeatherApi';
@@ -15,7 +16,7 @@ const DataController = (() => {
 
   //fetch defualt data for web and transfer it to elementCreator
   async function initDefualtData() {
-    let data = await api.fetchWeather('london');
+    let data = await api.fetchWeather('rehovot');
 
     weekly = data.pop();
     today = data.pop();
@@ -65,31 +66,32 @@ const DataController = (() => {
     return Math.round(today.main.temp_min);
   }
 
+  function getWeeklyWeather() {
+    return weekly.daily;
+  }
+
   function imgSwitch(desc) {
     switch (desc) {
       case 'Clouds':
         return cloud;
-        break;
 
       case 'Thunderstorm':
         return thunderstorm;
-        break;
 
       case 'Drizzle':
         return drizzle;
-        break;
 
       case 'Rain':
         return rain;
-        break;
 
       case 'Snow':
         return snow;
-        break;
+
+      case 'Clear':
+        return clear;
 
       default:
         return haze;
-        break;
     }
   }
 
@@ -104,6 +106,7 @@ const DataController = (() => {
     getWindSpeed,
     getTodayHigh,
     getTodayLow,
+    getWeeklyWeather,
   };
 })();
 

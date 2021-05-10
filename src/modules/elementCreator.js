@@ -1,15 +1,22 @@
+import DataController from './DataController';
 import dataController from './DataController';
+import util from './Util';
 
 const elements = (() => {
   function initPageElements() {
     let element = document.createElement('div');
     element.id = 'main';
 
-    element.appendChild(initCityNameP());
-    element.appendChild(initCurrent());
-    element.appendChild(initLowHighTemps());
+    appendAllElementsIntoMain(element);
 
     document.body.appendChild(element);
+  }
+
+  function appendAllElementsIntoMain(main) {
+    main.appendChild(initCityNameP());
+    main.appendChild(initCurrent());
+    main.appendChild(initLowHighTemps());
+    main.appendChild(initGridContainerWeekly());
   }
 
   function initCityNameP() {
@@ -131,6 +138,59 @@ const elements = (() => {
     element.appendChild(tempDiv2);
   } // !- part of today low and high temperatures END -!
 
+  function initGridContainerWeekly() {
+    let element = document.createElement('div');
+    element.id = 'grid-container';
+    appendWeeklyGridCells(element);
+    return element;
+  }
+
+  //!- part of grid weekly -!
+  //append grid cells into grid
+  function appendWeeklyGridCells(element) {
+    let weekWeatherArr = dataController.getWeeklyWeather();
+    for (let index = 1; index < 8; index++) {
+      element.appendChild(gridCell(weekWeatherArr[index]));
+    }
+  }
+
+  //create new grid cell with the information gotten from api
+  function gridCell(day) {
+    let cell = document.createElement('div');
+    cell.classList = 'grid-cell';
+
+    let p = document.createElement('p');
+    p.textContent = util.dtToDay(day.dt);
+    let img = document.createElement('img');
+    img.classList = 'cell-img';
+    img.src = DataController.imgSwitch(day.weather[0].main);
+
+    let div = document.createElement('div');
+    div.classList = 'cell-temps';
+    let spanLow = document.createElement('span');
+    spanLow.classList = 'cell-low';
+    spanLow.textContent = Math.round(day.temp.min);
+
+    let spanDay = document.createElement('span');
+    spanDay.classList = 'cell-avreage';
+    spanDay.textContent = Math.round(day.temp.day);
+
+    let spanMax = document.createElement('span');
+    spanMax.classList = 'cell-high';
+    spanMax.textContent = Math.round(day.temp.max);
+
+    div.appendChild(spanLow);
+    div.appendChild(spanDay);
+    div.appendChild(spanMax);
+
+    cell.appendChild(p);
+    cell.appendChild(img);
+    cell.appendChild(div);
+
+    return cell;
+  } //!- part of grid weekly END -!
+
+  //TODO create the extra information section
   /*
   const cityNameP = initCityNameP();
   const current = initCurrent();
