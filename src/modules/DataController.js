@@ -10,6 +10,7 @@ import clear from '../assets/clear.svg';
 import ui from './UI';
 import api from './WeatherApi';
 import elementCreator from './elementCreator';
+import util from './Util';
 const DataController = (() => {
   let today;
   let weekly;
@@ -95,6 +96,77 @@ const DataController = (() => {
     }
   }
 
+  function getExtraData() {
+    return _extraBundle();
+  }
+
+  function _extraBundle() {
+    let bundle = [];
+    bundle.push(_getSunrise());
+    bundle.push(_getSunSet());
+    bundle.push(_getVisability());
+    bundle.push(_getDescription());
+    bundle.push(_getWindDegree());
+    bundle.push(_getWindPressure());
+    return bundle;
+  }
+
+  //sunrise
+  //sunset
+  //visability
+  //description
+  //wind degree
+  //pressure
+
+  function _getSunrise() {
+    let time = util.dtToHMS(today.sys.sunrise);
+    let obj = {
+      name: 'sunrise',
+      data: time,
+    };
+    return obj;
+  }
+  function _getSunSet() {
+    let time = util.dtToHMS(today.sys.sunset);
+    let obj = {
+      name: 'sunset',
+      data: time,
+    };
+    return obj;
+  }
+  function _getVisability() {
+    let obj = {
+      name: 'visibility',
+      data: today.visibility,
+    };
+
+    return obj;
+  }
+
+  function _getDescription() {
+    let obj = {
+      name: 'description',
+      data: today.weather[0].description,
+    };
+    return obj;
+  }
+
+  function _getWindDegree() {
+    let obj = {
+      name: 'windDegree',
+      data: today.wind.deg,
+    };
+    return obj;
+  }
+
+  function _getWindPressure() {
+    let obj = {
+      name: 'windPressure',
+      data: today.main.pressure,
+    };
+    return obj;
+  }
+
   return {
     initDefualtData,
     imgSwitch,
@@ -107,6 +179,7 @@ const DataController = (() => {
     getTodayHigh,
     getTodayLow,
     getWeeklyWeather,
+    getExtraData,
   };
 })();
 

@@ -31,8 +31,14 @@ const util = (() => {
     }
   }
 
+  function converDtToTime(dt) {
+    let date = new Date(dt * 1000);
+    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  }
+
   return {
     dtToDay: convertDtToDay,
+    dtToHMS: converDtToTime,
   };
 })();
 

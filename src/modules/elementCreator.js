@@ -17,6 +17,7 @@ const elements = (() => {
     main.appendChild(initCurrent());
     main.appendChild(initLowHighTemps());
     main.appendChild(initGridContainerWeekly());
+    main.appendChild(additionalStatsInit());
   }
 
   function initCityNameP() {
@@ -191,6 +192,89 @@ const elements = (() => {
   } //!- part of grid weekly END -!
 
   //TODO create the extra information section
+
+  function additionalStatsInit() {
+    let element = document.createElement('div');
+    element.id = `extra-stats`;
+
+    element.appendChild(infoPElement());
+    element.appendChild(gridExtraStats());
+    return element;
+  }
+
+  //creates p element that will show static text
+  function infoPElement() {
+    let element = document.createElement('p');
+    element.textContent = 'additional informain:';
+    element.id = 'p-info';
+    return element;
+  }
+
+  function gridExtraStats() {
+    let element = document.createElement('div');
+    element.id = `grid-container-ex`;
+
+    let arr = gridContainerExtraCells();
+    for (let index = 0; index < 6; index++) {
+      element.appendChild(arr[index]);
+    }
+    return element;
+    //add to here an array of gridcointainerextracells
+  }
+
+  function gridContainerExtraCells() {
+    let element = document.createElement('div');
+    element.classList = `grid-cell-ex`;
+    let cells = [];
+
+    let data = DataController.getExtraData();
+    let size = data.length;
+
+    let name, cellData;
+
+    for (let index = 0; index < size; index++) {
+      name = data[index].name;
+      cellData = data[index].data;
+      console.log(name);
+      let newCellArr = gridCellEx(name, cellData);
+      cells.push(gridCellExAppendData(element, newCellArr));
+    }
+    console.log(cells);
+    return cells;
+  }
+
+  function gridCellExAppendData(element, arr) {
+    let cpyE = element.cloneNode(true);
+    let size = arr.length;
+    for (let index = 0; index < size; index++) {
+      cpyE.appendChild(arr[index]);
+    }
+    return cpyE;
+  }
+
+  function gridCellEx(name, data) {
+    let arr = [];
+    let pStatic = document.createElement('p');
+    pStatic.classList = 'info';
+    pStatic.textContent = name;
+
+    let pData = document.createElement('p');
+    pData.classList = 'ex-data';
+    pData.id = `${name}-data`;
+    pData.textContent = data;
+
+    arr.push(pStatic);
+    arr.push(pData);
+    return arr;
+  }
+
+  //sunrise
+  //sunset
+  //visability
+  //description
+  //wind degree
+  //pressure
+
   /*
   const cityNameP = initCityNameP();
   const current = initCurrent();

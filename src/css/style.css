@@ -242,13 +242,13 @@ header img {
 #p-info {
   color: rgb(250, 241, 224);
   font-size: 3rem;
+  margin-bottom: 100px;
 }
 #grid-container-ex {
   display: grid;
-  grid-template-columns: repeat(3, auto);
-  grid-template-rows: repeat(2, auto);
-  margin-left: 5%;
-  margin-right: 5%;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(3, auto);
+  margin-left: 20%;
 }
 
 .grid-cell-ex {
