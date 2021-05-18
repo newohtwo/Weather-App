@@ -3,6 +3,7 @@ import dataController from './DataController';
 import util from './Util';
 
 const elements = (() => {
+  //appeand all the elements of the page into main
   function initPageElements() {
     let element = document.createElement('div');
     element.id = 'main';
@@ -20,6 +21,7 @@ const elements = (() => {
     main.appendChild(additionalStatsInit());
   }
 
+  //create element of that shows city name
   function initCityNameP() {
     let element = document.createElement('p');
     element.id = 'city-name';
@@ -28,6 +30,7 @@ const elements = (() => {
     return element;
   }
 
+  //current div - shows the temp as it is right now
   function initCurrent() {
     let element = document.createElement('div');
     element.id = 'current';
@@ -53,13 +56,15 @@ const elements = (() => {
     element.appendChild(additional);
   }
 
+  //creates the C/F sign above the degree
+  //TODO create the onclick function that will switch betwen the methods of degree
   function degreeMethodDivBuild() {
     let degreeMethodDiv = document.createElement('div');
     degreeMethodDiv.id = 'degree-method';
     //childs of div
     let currentTempMethodP = document.createElement('p');
     currentTempMethodP.id = 'current-temp-method';
-    //might be an issue here
+
     let celsiusSpan = document.createElement('span');
     celsiusSpan.id = 'celsius';
     celsiusSpan.innerHTML = `&#8451`;
@@ -101,44 +106,47 @@ const elements = (() => {
     return element;
   } //!- part of current END -!
 
+  // !- part of today low and high temperatures -!
+  //craets the low and high temps below the current temp
   function initLowHighTemps() {
     let element = document.createElement('div');
     element.id = 'today-low-high';
-    lowHighSeperator(element);
+    addLHTempsForToday(element);
     return element;
   }
+  //appeands to elemnt the low and high temperatues for today
+  function addLHTempsForToday(element) {
+    element.appendChild(
+      secondryTemps('temp-sign', 'L', 'today-low', dataController.getTodayLow())
+    );
+    element.appendChild(
+      secondryTemps(
+        'temp-sign',
+        'H',
+        'today-high',
+        dataController.getTodayHigh()
+      )
+    );
+  }
 
-  // !- part of today low and high temperatures -!
-  function lowHighSeperator(element) {
-    let tempDiv = document.createElement('div');
-    let tempDiv2 = document.createElement('div');
-
+  //creates the div that shows secoundry data for today
+  function secondryTemps(className, sign, id, textData) {
+    let div = document.createElement('div');
     let spanNum = document.createElement('span');
     let spanSign = document.createElement('span');
 
-    spanSign.classList = 'temp-sign';
-    spanSign.textContent = 'L';
-    spanNum.id = 'today-low';
-    spanNum.textContent = dataController.getTodayLow();
+    spanSign.classList = className;
+    spanSign.textContent = sign;
+    spanNum.id = id;
+    spanNum.textContent = textData;
 
-    tempDiv.appendChild(spanNum);
-    tempDiv.appendChild(spanSign);
+    div.appendChild(spanNum);
+    div.appendChild(spanSign);
 
-    let spanNum2 = document.createElement('span');
-    let spanSign2 = document.createElement('span');
-
-    spanSign2.classList = 'temp-sign';
-    spanSign2.textContent = 'H';
-    spanNum2.id = 'today-high';
-    spanNum2.textContent = dataController.getTodayHigh();
-
-    tempDiv2.appendChild(spanNum2);
-    tempDiv2.appendChild(spanSign2);
-
-    element.appendChild(tempDiv);
-    element.appendChild(tempDiv2);
+    return div;
   } // !- part of today low and high temperatures END -!
 
+  //grid for the weekly weather data
   function initGridContainerWeekly() {
     let element = document.createElement('div');
     element.id = 'grid-container';
@@ -191,8 +199,8 @@ const elements = (() => {
     return cell;
   } //!- part of grid weekly END -!
 
-  //TODO create the extra information section
-
+  //!- addtional stats regarding the day -!
+  //craetes the div that shows addiontal data about today
   function additionalStatsInit() {
     let element = document.createElement('div');
     element.id = `extra-stats`;
@@ -210,23 +218,25 @@ const elements = (() => {
     return element;
   }
 
+  //creates grid,adds to grid cells
   function gridExtraStats() {
     let element = document.createElement('div');
     element.id = `grid-container-ex`;
 
-    let arr = gridContainerExtraCells();
+    let arr = extraCells();
     for (let index = 0; index < 6; index++) {
       element.appendChild(arr[index]);
     }
     return element;
-    //add to here an array of gridcointainerextracells
   }
 
-  function gridContainerExtraCells() {
+  //returns an array of cells for grid
+  function extraCells() {
     let element = document.createElement('div');
     element.classList = `grid-cell-ex`;
     let cells = [];
 
+    //data contains array of {name,data}
     let data = DataController.getExtraData();
     let size = data.length;
 
@@ -235,23 +245,17 @@ const elements = (() => {
     for (let index = 0; index < size; index++) {
       name = data[index].name;
       cellData = data[index].data;
-      console.log(name);
-      let newCellArr = gridCellEx(name, cellData);
-      cells.push(gridCellExAppendData(element, newCellArr));
+
+      let cellDataArr = gridCellEx(name, cellData);
+      cells.push(gridCellExAppendData(element, cellDataArr));
     }
-    console.log(cells);
+
     return cells;
   }
 
-  function gridCellExAppendData(element, arr) {
-    let cpyE = element.cloneNode(true);
-    let size = arr.length;
-    for (let index = 0; index < size; index++) {
-      cpyE.appendChild(arr[index]);
-    }
-    return cpyE;
-  }
-
+  //creates 2 p elements with data and returns array containing them
+  //name of data
+  //data
   function gridCellEx(name, data) {
     let arr = [];
     let pStatic = document.createElement('p');
@@ -268,184 +272,16 @@ const elements = (() => {
     return arr;
   }
 
-  //sunrise
-  //sunset
-  //visability
-  //description
-  //wind degree
-  //pressure
-
-  /*
-  const cityNameP = initCityNameP();
-  const current = initCurrent();
-  const todayLH = initLowHighTemps();
-  const gridWeeklyTemp = initGridContainerWeekly();
-  const main = initMain();
-
-  function initMain() {
-    let element = document.createElement('div');
-    element.id = 'main';
-
-    element.appendChild(cityNameP);
-    element.appendChild(current);
-
-    document.body.appendChild(element);
-    return element;
+  //copies element and appends into it array of elements
+  function gridCellExAppendData(element, arr) {
+    let cpyE = element.cloneNode(true);
+    let size = arr.length;
+    for (let index = 0; index < size; index++) {
+      cpyE.appendChild(arr[index]);
+    }
+    return cpyE;
   }
-
-  function initalizeElements(today, weekly) {
-    //call here 2 functions that will help to init
-    cityNameP.textContent = today.name;
-    initCurrent(today);
-  }
-
-  function initCityNameP() {
-    let element = document.createElement('p');
-    element.id = 'city-name';
-
-    return element;
-  }
-  //build the main information on top of screen
-  function initCurrent(todayD) {
-    let element = document.createElement('div');
-    element.id = 'current';
-    currentAppendNodes(element, todayD);
-    return element;
-  }
-
-  function currentAppendNodes(element, data) {
-    let img = document.createElement('img');
-    img.id = 'current-img';
-    //img.src = dataController.imgSWitch(data.weather[0].main);
-    //img.src = dataController.imgSwitch(data.weather[0].main);
-
-    let currentTempP = document.createElement('p');
-    currentTempP.textContent = '';
-    currentTempP.id = 'current-temp';
-
-    let method = degreeMethodDivBuild();
-    let additional = currentAdditional();
-
-    element.appendChild(img);
-    element.appendChild(currentTempP);
-    element.appendChild(method);
-    element.appendChild(additional);
-  }
-
-  //!- part of current -!
-  //build the part that showes what kind of method is used to show the degree for the data
-  function degreeMethodDivBuild() {
-    let degreeMethodDiv = document.createElement('div');
-    degreeMethodDiv.id = 'degree-method';
-    //childs of div
-    let currentTempMethodP = document.createElement('p');
-    currentTempMethodP.id = 'current-temp-method';
-    //might be an issue here
-    let celsiusSpan = document.createElement('span');
-    celsiusSpan.id = 'celsius';
-    celsiusSpan.innerHTML = `&#8451`;
-
-    let divider = document.createElement('span');
-    divider.textContent = '/';
-
-    let fahrenheitSpan = document.createElement('span');
-    fahrenheitSpan.id = 'fahrenheit';
-    fahrenheitSpan.innerHTML = '&#8457';
-
-    //end childs
-
-    degreeMethodDiv.appendChild(currentTempMethodP);
-    degreeMethodDiv.appendChild(celsiusSpan);
-    degreeMethodDiv.appendChild(divider);
-    degreeMethodDiv.appendChild(fahrenheitSpan);
-    return degreeMethodDiv;
-  }
-
-  //build the additional info that shows next to the degree
-  function currentAdditional() {
-    let element = document.createElement('div');
-    element.id = 'current-additional';
-
-    let feelLikeP = document.createElement('p');
-    feelLikeP.id = 'current-feel-like';
-    let humidityP = document.createElement('p');
-    humidityP.id = 'current-humidity';
-    let windSpeedP = document.createElement('p');
-    windSpeedP.id = 'current-wind-speed';
-
-    element.appendChild(feelLikeP);
-    element.appendChild(humidityP);
-    element.appendChild(windSpeedP);
-    return element;
-  } //!- part of current END -!
-
-  function initLowHighTemps() {
-    let element = document.createElement('div');
-    element.id = 'today-low-high';
-    lowHighSeperator(element);
-    return element;
-  }
-
-  // !- part of today low and high temperatures -!
-  function lowHighSeperator(element) {
-    let tempDiv = document.createElement('div');
-    let tempDiv2 = document.createElement('div');
-
-    let spanNum = document.createElement('span');
-    let spanSign = document.createElement('span');
-
-    spanSign.classList = 'temp-sign';
-    spanSign.textContent = 'L';
-    spanNum.id = 'today-low';
-
-    tempDiv.appendChild(spanNum);
-    tempDiv.appendChild(spanSign);
-    spanNum.id = 'today-high';
-    spanSign.textContent = 'H';
-
-    tempDiv2.appendChild(spanNum);
-    tempDiv2.appendChild(spanSign);
-
-    element.appendChild(tempDiv);
-    element.appendChild(tempDiv2);
-  } // !- part of today low and high temperatures END -!
-
-  function initGridContainerWeekly() {
-    let element = document.createElement('div');
-    element.id = 'grid-container';
-    appendWeeklyGridCells(element);
-  }
-  //!- part of grid weekly -!
-  function appendWeeklyGridCells(element) {
-    let cell = document.createElement('div');
-    cell.classList = 'grid-cell';
-    cellContent(cell);
-
-    for (let index = 0; index < 8; index++) element.appendChild(cell);
-  }
-
-  function cellContent(cell) {
-    let p = document.createElement('p');
-    let img = document.createElement('img');
-    img.classList = 'cell-img';
-
-    let div = document.createElement('div');
-    let spanLow = document.createElement('span');
-    spanLow.classList = 'cell-low';
-    let spanDay = document.createElement('span');
-    spanDay.classList = 'cell-avreage';
-    let spanMax = document.createElement('span');
-    spanMax.classList = 'cell-high';
-
-    div.appendChild(spanLow);
-    div.appendChild(spanDay);
-    div.appendChild(spanMax);
-
-    cell.appendChild(p);
-    cell.appendChild(img);
-    cell.appendChild(div);
-  } //!- part of grid weekly END -!
-  */
+  //!- addtional stats regarding the day END -!
 
   return { initPageElements };
 })();

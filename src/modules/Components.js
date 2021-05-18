@@ -1,4 +1,5 @@
 //create the logic for the components on the web, button , input
+import DataController from './DataController';
 import api from './WeatherApi';
 const copmonents = (() => {
   const searchBtn = initSBtn();
@@ -13,7 +14,7 @@ const copmonents = (() => {
       if (inputField.value === '') {
         return;
       }
-      api.searchCity(inputField.value);
+      DataController.fetchDataUsingName(inputField.value);
       inputField.value = '';
     };
     return element;

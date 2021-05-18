@@ -21,14 +21,24 @@ const DataController = (() => {
 
     weekly = data.pop();
     today = data.pop();
+    /*
     console.log('current');
     console.log(today);
     console.log(today.weather[0].main);
     console.log('weekly');
     console.log(weekly);
+    */
     elementCreator.initPageElements(weekly, today);
     //call element creator with current and weekly data.
     //elementCreator.init(weeklyW,currentDayW);
+  }
+
+  async function fetchDataUsingName(cityName) {
+    let data = await api.fetchWeather(cityName);
+    weekly = data.pop();
+    today = data.pop();
+
+    //UI change
   }
 
   /*
@@ -118,6 +128,7 @@ const DataController = (() => {
   //wind degree
   //pressure
 
+  //addtional data for the day
   function _getSunrise() {
     let time = util.dtToHMS(today.sys.sunrise);
     let obj = {
@@ -169,6 +180,7 @@ const DataController = (() => {
 
   return {
     initDefualtData,
+    fetchDataUsingName,
     imgSwitch,
     getCTemp,
     getCityName,
