@@ -13,4 +13,5 @@ import dataController from './modules/DataController';
 //api.initApp();
 //maybe create function that will start it all where it will simulate a buton press of search
 //create a circle that shows loading , create it in element creator and than disable it from ui;
+
 dataController.initDefualtData();

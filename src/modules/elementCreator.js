@@ -1,4 +1,3 @@
-import DataController from './DataController';
 import dataController from './DataController';
 import util from './Util';
 
@@ -41,7 +40,7 @@ const elements = (() => {
   function currentAppendNodes(element) {
     let img = document.createElement('img');
     img.id = 'current-img';
-    img.src = dataController.imgSwitch(dataController.getWeatherState());
+    img.src = dataController.imgSwitch(dataController.getCWeatherSate());
 
     let currentTempP = document.createElement('p');
     currentTempP.textContent = dataController.getCTemp();
@@ -158,6 +157,7 @@ const elements = (() => {
   //append grid cells into grid
   function appendWeeklyGridCells(element) {
     let weekWeatherArr = dataController.getWeeklyWeather();
+
     for (let index = 1; index < 8; index++) {
       element.appendChild(gridCell(weekWeatherArr[index]));
     }
@@ -172,12 +172,13 @@ const elements = (() => {
     p.textContent = util.dtToDay(day.dt);
     let img = document.createElement('img');
     img.classList = 'cell-img';
-    img.src = DataController.imgSwitch(day.weather[0].main);
+    img.src = dataController.imgSwitch(day.weather[0].main);
 
     let div = document.createElement('div');
     div.classList = 'cell-temps';
     let spanLow = document.createElement('span');
     spanLow.classList = 'cell-low';
+
     spanLow.textContent = Math.round(day.temp.min);
 
     let spanDay = document.createElement('span');
@@ -237,7 +238,7 @@ const elements = (() => {
     let cells = [];
 
     //data contains array of {name,data}
-    let data = DataController.getExtraData();
+    let data = dataController.getExtraData();
     let size = data.length;
 
     let name, cellData;

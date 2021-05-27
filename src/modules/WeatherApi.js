@@ -5,8 +5,6 @@
 //this api should get the city name and return the info regarding it
 //get city output data
 
-//create the 2 call thingy
-import dataController from './DataController';
 const api = (() => {
   //return citys weather for today using name
   async function getTodaysWeather(cityName) {
@@ -58,7 +56,6 @@ const api = (() => {
       weatherArr.push(wData);
 
       return weatherArr;
-      //call here for dataSave functions
     } catch (error) {
       console.log(error);
     }

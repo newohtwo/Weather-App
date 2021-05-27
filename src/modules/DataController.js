@@ -17,10 +17,12 @@ const DataController = (() => {
 
   //fetch defualt data for web and transfer it to elementCreator
   async function initDefualtData() {
+    ui.loadingSwitch();
     let data = await api.fetchWeather('rehovot');
 
     weekly = data.pop();
     today = data.pop();
+
     /*
     console.log('current');
     console.log(today);
@@ -28,7 +30,8 @@ const DataController = (() => {
     console.log('weekly');
     console.log(weekly);
     */
-    elementCreator.initPageElements(weekly, today);
+    elementCreator.initPageElements();
+    ui.loadingSwitch();
     //call element creator with current and weekly data.
     //elementCreator.init(weeklyW,currentDayW);
   }
@@ -37,6 +40,7 @@ const DataController = (() => {
     let data = await api.fetchWeather(cityName);
     weekly = data.pop();
     today = data.pop();
+    ui.updateUi();
 
     //UI change
   }
@@ -53,7 +57,7 @@ const DataController = (() => {
     return today.name;
   }
 
-  function getWeatherState() {
+  function getCWeatherSate() {
     return today.weather[0].main;
   }
 
@@ -121,6 +125,17 @@ const DataController = (() => {
     return bundle;
   }
 
+  function additionalData() {
+    let bundle = [];
+    bundle.push(_getSunrise().data);
+    bundle.push(_getSunSet().data);
+    bundle.push(_getVisability().data);
+    bundle.push(_getDescription().data);
+    bundle.push(_getWindDegree().data);
+    bundle.push(_getWindPressure().data);
+    return bundle;
+  }
+
   //sunrise
   //sunset
   //visability
@@ -184,7 +199,7 @@ const DataController = (() => {
     imgSwitch,
     getCTemp,
     getCityName,
-    getWeatherState,
+    getCWeatherSate,
     getFeelLikeCT,
     getHumidityT,
     getWindSpeed,
@@ -192,6 +207,7 @@ const DataController = (() => {
     getTodayLow,
     getWeeklyWeather,
     getExtraData,
+    additionalData,
   };
 })();
 
