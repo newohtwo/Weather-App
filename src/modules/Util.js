@@ -64,10 +64,43 @@ const util = (() => {
   }
   //Math.round(day.temp.min);
 
+  //swap the weekly nodes temp method with the right temp messurment
+  function swapTempMethod(node, index, tempMethod) {
+    let weeklyArray = DataController.getWeeklyWeather();
+    let div = node[2];
+    updateTempMethod(div, weeklyArray[index], tempMethod);
+  }
+
+  //update the temp in each node
+  function updateTempMethod(node, day, flag) {
+    let min = node.children[0];
+    let avreage = node.children[1];
+    let max = node.children[2];
+
+    //do the math here using the data
+    if (flag) {
+      min.innerHTML = `${Math.round(day.temp.min)}`;
+      avreage.innerHTML = `${Math.round(day.temp.day)}`;
+      max.innerHTML = `${Math.round(day.temp.max)}`;
+    } else {
+      min.innerHTML = `${Math.round(numToFahrenheit(day.temp.min))}`;
+      avreage.innerHTML = `${Math.round(numToFahrenheit(day.temp.day))}`;
+      max.innerHTML = `${Math.round(numToFahrenheit(day.temp.max))}`;
+    }
+  }
+
+  function numToFahrenheit(num) {
+    num *= 9 / 5;
+    num += 32;
+    return Math.round(num);
+  }
+
   return {
     dtToDay: convertDtToDay,
     dtToHMS: converDtToTime,
     updateWGNData,
+    celToFar: numToFahrenheit,
+    updateWeeklyGridTempMethod: swapTempMethod,
   };
 })();
 

@@ -1,5 +1,7 @@
 import dataController from './DataController';
 import util from './Util';
+import components from './Components';
+import ui from './UI';
 
 const elements = (() => {
   //appeand all the elements of the page into main
@@ -81,6 +83,7 @@ const elements = (() => {
     //end childs
 
     degreeMethodDiv.appendChild(currentTempMethodP);
+    components.initTempMethodBtn(degreeMethodDiv);
     return degreeMethodDiv;
   }
 
@@ -214,7 +217,7 @@ const elements = (() => {
   //creates p element that will show static text
   function infoPElement() {
     let element = document.createElement('p');
-    element.textContent = 'additional informain:';
+    element.textContent = 'additional information:';
     element.id = 'p-info';
     return element;
   }

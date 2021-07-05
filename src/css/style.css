@@ -111,8 +111,9 @@ header {
 }
 
 body {
-  overflow: hidden;
   overflow-y: hidden;
+  overflow: hidden;
+  background-color: rgb(245, 245, 245);
 }
 #main {
   height: 100vh;
@@ -137,6 +138,7 @@ header img {
   right: 10px;
   z-index: 0;
 }
+
 #city-name {
   font-size: 3rem;
 }
@@ -155,8 +157,10 @@ header img {
 }
 #current-temp-method {
   font-size: 4rem;
-  position: fixed;
+  position: absolute;
   cursor: pointer;
+  border: rgb(218, 218, 218) solid 2px;
+  border-radius: 12px;
 }
 
 #celsius {
@@ -242,7 +246,6 @@ header img {
 #p-info {
   color: rgb(250, 241, 224);
   font-size: 3rem;
-  margin-bottom: 100px;
 }
 #grid-container-ex {
   display: grid;
@@ -259,10 +262,6 @@ header img {
 
 .info {
   color: rgb(70, 70, 70);
-}
-
-body {
-  background-color: rgb(245, 245, 245);
 }
 
 /*loading animation*/
@@ -305,10 +304,203 @@ body {
 }
 /*loading animation*/
 
+/*figure out how to make the screen not scrollable in under 768px*/
 /*for ipad*/
 @media only screen and (min-width: 768px) {
+  #current-temp-method {
+    font-size: 4rem;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  body {
+    overflow-y: scroll;
+  }
+
+  #extra-stats {
+    height: 54%;
+  }
 }
 
 /*for desktop*/
 @media only screen and (min-width: 1000px) {
+  header {
+    height: 120px;
+    background-color: rgb(247, 231, 201);
+    display: flex;
+    align-items: center;
+  }
+
+  header img {
+    position: relative;
+    left: 15px;
+    width: 80px;
+  }
+  #header-fields {
+    position: relative;
+    left: 20px;
+  }
+
+  #city-input-text {
+    font-size: 1.5rem;
+  }
+  #search-btn {
+    font-size: 1.4rem;
+    position: relative;
+    left: 5px;
+  }
+
+  #current-temp-method {
+    font-size: 4rem;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  body {
+    overflow-y: hidden;
+  }
+
+  #extra-stats {
+    height: 89%;
+  }
+
+  /*current*/
+  #city-name {
+    font-size: 2rem;
+  }
+
+  #current {
+    display: flex;
+    justify-content: center;
+    margin-right: 69%;
+  }
+
+  #current-img {
+    width: 120px;
+  }
+
+  #current-temp {
+    font-size: 5rem;
+  }
+
+  #current-temp-method {
+    font-size: 2rem;
+    position: absolute;
+    cursor: pointer;
+    border: rgb(218, 218, 218) solid 2px;
+    border-radius: 12px;
+  }
+
+  #celsius {
+    font-weight: bold;
+  }
+  #fahrenheit {
+    font-weight: normal;
+    color: gray;
+  }
+
+  #current-additional {
+    font-size: 1.2rem;
+    position: relative;
+    margin-top: 3rem;
+    color: rgb(114, 114, 114);
+  }
+
+  #today-low-high {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5%;
+    margin-right: 75%;
+  }
+  #today-low {
+    color: rgba(23, 77, 255, 0.808);
+    font-size: 2.5rem;
+  }
+  #today-high {
+    color: rgba(255, 61, 27, 0.801);
+    font-size: 2.5rem;
+  }
+
+  .temp-sign {
+    font-size: 1.5rem;
+    position: relative;
+    color: rgb(78, 78, 78);
+  }
+  /*current end*/
+
+  /*container with days on it*/
+  #grid-container {
+    position: absolute;
+    display: grid;
+    background-color: rgb(245, 245, 245);
+    border: hidden;
+    grid-template-columns: repeat(7, auto);
+    margin-left: 33vw;
+    top: -1%;
+    overflow: hidden;
+    height: 150px;
+    width: 65vw;
+  }
+
+  .grid-cell {
+    text-align: center;
+    font-size: 1.2rem;
+    width: 100%;
+    height: 75%;
+    border-right: rgb(233, 232, 232) 2px solid;
+  }
+
+  .cell-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 65px;
+  }
+
+  .cell-low {
+    color: rgba(23, 77, 255, 0.808);
+  }
+  .cell-avreage {
+    font-size: 1.6rem;
+  }
+  .cell-high {
+    color: rgba(255, 61, 27, 0.801);
+  }
+  /*container with days on it*/
+
+  .cell-low {
+    color: rgba(23, 77, 255, 0.808);
+  }
+  .cell-avreage {
+    font-size: 1.45rem;
+  }
+  .cell-high {
+    color: rgba(255, 61, 27, 0.801);
+  }
+
+  #extra-stats {
+    background-color: rgb(157, 158, 177);
+    height: 100%;
+  }
+  #p-info {
+    color: rgb(250, 241, 224);
+    font-size: 1.5rem;
+  }
+  #grid-container-ex {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+  }
+
+  .grid-cell-ex {
+    position: relative;
+    color: white;
+    font-size: 1.5rem;
+    bottom: 50%;
+    right: 30%;
+  }
+
+  .info {
+    color: rgb(70, 70, 70);
+  }
 }

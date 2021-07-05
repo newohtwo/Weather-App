@@ -21,6 +21,9 @@ const UI = (() => {
     windDegree,
     windPressure;
 
+  let degreeCelsius, degreeFahrenheit;
+  let degreeMethodBool = false;
+
   function _initVariables() {
     currentCityName = document.querySelector('#city-name');
     currentTemp = document.querySelector('#current-temp');
@@ -39,6 +42,9 @@ const UI = (() => {
     description = document.querySelector('#description-data');
     windDegree = document.querySelector('#windDegree-data');
     windPressure = document.querySelector('#windPressure-data');
+
+    degreeCelsius = document.querySelector('#celsius');
+    degreeFahrenheit = document.querySelector('#fahrenheit');
   }
 
   //function array for updating the website
@@ -57,6 +63,9 @@ const UI = (() => {
       currentImg.src = dataController.imgSwitch(
         dataController.getCWeatherSate()
       );
+    },
+    function resetDegreeMethod() {
+      degreeMethodBool = false;
     },
 
     //feel like
@@ -103,20 +112,16 @@ const UI = (() => {
 
   function loadingIcon() {
     //fix this after first run no work
-    console.log(loadingRing.style.display);
+
     if (loadingRing.style.display === '') {
       loadingRing.style.display = 'block';
     } else {
       loadingRing.style.display = '';
     }
-
-    console.log(loadingRing.style.display);
   }
 
   //calls all the functions in the function array
   function changeUiFromCache() {
-    //do it with time
-
     let size = _changeUiArray.length;
     _initVariables();
     for (let index = 0; index < size; index++) {
@@ -126,11 +131,78 @@ const UI = (() => {
     loadingIcon();
   }
 
-  function addElementToMain(element) {}
+  //change the current method of showing degrees on page.
+  //needs to change it on click and than to keep the prefrence for next time use
+  //can achive the save for the next time use using localstorage
+  //TODO figure out a way to do it
+  function switchDegreeMethod() {
+    if (currentTemp == null) {
+      _initVariables();
+    }
+
+    highLightDegreeChange();
+
+    if (degreeMethodBool) {
+      //change celcius
+      currentTemp.textContent = Math.round(dataController.getCTemp());
+      currentLowTemp.textContent = Math.round(dataController.getTodayLow());
+      currentHighTemp.textContent = Math.round(dataController.getTodayHigh());
+
+      currentFL.textContent = `feels like: ${dataController.getFeelLikeCT()}`;
+
+      let gridNodes = weeklyWeatherGrid.children;
+      let gridSize = gridNodes.length;
+      for (let index = 0; index < gridSize; index++) {
+        util.updateWeeklyGridTempMethod(
+          gridNodes[index].children,
+          index,
+          degreeMethodBool
+        );
+      }
+      degreeMethodBool = !degreeMethodBool;
+    } else {
+      //change to faranhigt
+      currentTemp.textContent = util.celToFar(dataController.getCTemp());
+      currentLowTemp.textContent = util.celToFar(dataController.getTodayLow());
+      currentHighTemp.textContent = util.celToFar(
+        dataController.getTodayHigh()
+      );
+      currentFL.textContent = `feels like: ${util.celToFar(
+        dataController.getFeelLikeCT()
+      )}`;
+
+      let gridNodes = weeklyWeatherGrid.children;
+      let gridSize = gridNodes.length;
+      for (let index = 0; index < gridSize; index++) {
+        util.updateWeeklyGridTempMethod(
+          gridNodes[index].children,
+          index,
+          degreeMethodBool
+        );
+      }
+      degreeMethodBool = !degreeMethodBool;
+    }
+  }
+
+  function highLightDegreeChange() {
+    if (degreeMethodBool) {
+      degreeFahrenheit.style.fontWeight = 'bold';
+      degreeCelsius.style.fontWeight = '50';
+      degreeFahrenheit.style.color = 'gray';
+      degreeCelsius.style.color = 'black';
+    } else {
+      degreeFahrenheit.style.fontWeight = '50';
+      degreeCelsius.style.fontWeight = 'bold';
+      degreeFahrenheit.style.color = 'black';
+      degreeCelsius.style.color = 'gray';
+    }
+  }
 
   return {
     updateUi: changeUiFromCache,
     loadingSwitch: loadingIcon,
+    switchDegreeMethod,
+    _initVariables,
   };
 })();
 
