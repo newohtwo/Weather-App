@@ -86,6 +86,8 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  overflow-y: hidden;
+  overflow: hidden;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -104,15 +106,13 @@ section {
 
 /*for mobile 360pxish*/
 header {
-  height: 120px;
+  height: 10%;
   background-color: rgb(247, 231, 201);
   display: flex;
   align-items: center;
 }
 
 body {
-  overflow-y: hidden;
-  overflow: hidden;
   background-color: rgb(245, 245, 245);
 }
 #main {
@@ -122,7 +122,7 @@ body {
 header img {
   position: relative;
   left: 15px;
-  width: 100px;
+  width: 15%;
 }
 #header-fields {
   position: relative;
@@ -130,34 +130,37 @@ header img {
 }
 
 #city-input-text {
-  font-size: 2.8rem;
+  font-size: 1.2rem;
+  width: 60%;
 }
 #search-btn {
-  font-size: 2.8rem;
+  font-size: 1.2rem;
   position: relative;
-  right: 10px;
+  right: 5px;
   z-index: 0;
 }
 
 #city-name {
-  font-size: 3rem;
+  font-size: 1.5rem;
 }
 #current {
   display: flex;
   justify-content: center;
-  margin-left: 2%;
+  margin-left: 17%;
 }
 
 #current-img {
-  width: 200px;
+  width: 80px;
 }
 
 #current-temp {
-  font-size: 13rem;
+  font-size: 3rem;
+  position: relative;
 }
 #current-temp-method {
-  font-size: 4rem;
+  font-size: 2rem;
   position: absolute;
+  margin-left: 4%;
   cursor: pointer;
   border: rgb(218, 218, 218) solid 2px;
   border-radius: 12px;
@@ -172,9 +175,10 @@ header img {
 }
 
 #current-additional {
-  font-size: 2.2rem;
+  font-size: 0.9rem;
   position: relative;
-  margin-top: 7rem;
+  margin-top: 2.8rem;
+
   color: rgb(114, 114, 114);
 }
 
@@ -186,15 +190,15 @@ header img {
 }
 #today-low {
   color: rgba(23, 77, 255, 0.808);
-  font-size: 8rem;
+  font-size: 2rem;
 }
 #today-high {
   color: rgba(255, 61, 27, 0.801);
-  font-size: 8rem;
+  font-size: 2rem;
 }
 
 .temp-sign {
-  font-size: 2.5rem;
+  font-size: 1.3rem;
   position: relative;
   color: rgb(78, 78, 78);
 }
@@ -207,21 +211,22 @@ header img {
   grid-template-columns: repeat(7, auto);
   overflow-y: hidden;
   overflow-x: scroll;
-  height: 350px;
+  height: 150px;
 }
 
 .grid-cell {
   border-right: gray solid 2px;
-  font-size: 2.8rem;
-  width: 300px;
-  height: 320px;
+  font-size: 1.4rem;
+  width: 170px;
+  height: 200px;
+  text-align: center;
 }
 
 .cell-img {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 200px;
+  width: 80px;
 }
 
 .cell-temps {
@@ -233,7 +238,7 @@ header img {
   color: rgba(23, 77, 255, 0.808);
 }
 .cell-avreage {
-  font-size: 4.2rem;
+  font-size: 1.8rem;
 }
 .cell-high {
   color: rgba(255, 61, 27, 0.801);
@@ -241,23 +246,24 @@ header img {
 
 #extra-stats {
   background-color: rgb(157, 158, 177);
-  height: 50%;
+  height: 60%;
 }
 #p-info {
   color: rgb(250, 241, 224);
-  font-size: 3rem;
+  font-size: 1.4rem;
 }
 #grid-container-ex {
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(3, auto);
-  margin-left: 20%;
+  margin-left: 10%;
+  margin-bottom: 50%;
 }
 
 .grid-cell-ex {
   color: white;
-  font-size: 3rem;
-  margin-top: 20%;
+  font-size: 1.2rem;
+  margin-top: 2.5%;
 }
 
 .info {
@@ -308,7 +314,7 @@ header img {
 /*for ipad*/
 @media only screen and (min-width: 768px) {
   #current-temp-method {
-    font-size: 4rem;
+    font-size: 2.2rem;
     position: absolute;
     cursor: pointer;
   }
@@ -319,6 +325,103 @@ header img {
 
   #extra-stats {
     height: 54%;
+  }
+  #current {
+    display: flex;
+    justify-content: center;
+    margin-left: 6%;
+  }
+
+  #current-img {
+    width: 100px;
+  }
+
+  #current-temp {
+    font-size: 6rem;
+    position: relative;
+  }
+
+  #current-temp-method {
+    font-size: 2rem;
+    position: absolute;
+    margin-left: 4%;
+    cursor: pointer;
+    border: rgb(218, 218, 218) solid 2px;
+    border-radius: 12px;
+  }
+
+  #celsius {
+    font-weight: bold;
+  }
+  #fahrenheit {
+    font-weight: normal;
+    color: gray;
+  }
+
+  #current-additional {
+    font-size: 1.2rem;
+    position: relative;
+    margin-top: 2.8rem;
+
+    color: rgb(114, 114, 114);
+  }
+
+  #today-low-high {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  #today-low {
+    color: rgba(23, 77, 255, 0.808);
+    font-size: 4rem;
+  }
+  #today-high {
+    color: rgba(255, 61, 27, 0.801);
+    font-size: 4rem;
+  }
+
+  .temp-sign {
+    font-size: 1.3rem;
+    position: relative;
+    color: rgb(78, 78, 78);
+  }
+
+  #grid-container {
+    display: grid;
+    background-color: rgb(252, 241, 222);
+    margin-top: 10%;
+    border-top: gray solid 2px;
+    grid-template-columns: repeat(7, auto);
+    overflow-y: hidden;
+    overflow-x: scroll;
+    height: 150px;
+  }
+
+  .grid-cell {
+    border-right: gray solid 2px;
+    font-size: 1.4rem;
+    width: 170px;
+    height: 200px;
+    text-align: center;
+  }
+
+  #p-info {
+    color: rgb(250, 241, 224);
+    font-size: 1.7rem;
+  }
+  #grid-container-ex {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(3, auto);
+    margin-left: 10%;
+    margin-bottom: 50%;
+  }
+
+  .grid-cell-ex {
+    color: white;
+    font-size: 1.9rem;
+    margin-top: 2.5%;
   }
 }
 
@@ -339,13 +442,16 @@ header img {
   #header-fields {
     position: relative;
     left: 20px;
+    display: flex;
+    width: 39%;
   }
 
   #city-input-text {
     font-size: 1.5rem;
+    width: 400px;
   }
   #search-btn {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     position: relative;
     left: 5px;
   }
@@ -436,17 +542,17 @@ header img {
     border: hidden;
     grid-template-columns: repeat(7, auto);
     margin-left: 33vw;
-    top: -1%;
+    top: -3%;
     overflow: hidden;
-    height: 150px;
+    height: 180px;
     width: 65vw;
   }
 
   .grid-cell {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     width: 100%;
-    height: 75%;
+    height: 80%;
     border-right: rgb(233, 232, 232) 2px solid;
   }
 
@@ -454,17 +560,20 @@ header img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 65px;
+    width: 85px;
   }
 
   .cell-low {
     color: rgba(23, 77, 255, 0.808);
+    font-size: 1.3rem;
   }
   .cell-avreage {
-    font-size: 1.6rem;
+    font-size: 3rem;
+    margin-top: 10px;
   }
   .cell-high {
     color: rgba(255, 61, 27, 0.801);
+    font-size: 1.3rem;
   }
   /*container with days on it*/
 
@@ -496,8 +605,7 @@ header img {
     position: relative;
     color: white;
     font-size: 1.5rem;
-    bottom: 50%;
-    right: 30%;
+    bottom: 40%;
   }
 
   .info {
