@@ -14,6 +14,7 @@ Created with the [open weather api](https://openweathermap.org/api), html ,css ,
 * OOP principles
 * Parsing Json from API into Data
 * Familiarity with Async and Await keywords
+* Error handling with Try and Catch
 ---
 ## [Check the Weather in your city!](https://newohtwo.github.io/Weather-App/)
 
