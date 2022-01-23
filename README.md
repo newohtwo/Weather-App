@@ -13,7 +13,7 @@ Created with the [open weather api](https://openweathermap.org/api), html ,css ,
 * Factory Function and Classes
 * OOP principles
 * Parsing Json from API into Data
-* familiarity with Async and Await keywords
+* Familiarity with Async and Await keywords
 ---
 ## [Check the Weather in your city!](https://newohtwo.github.io/Weather-App/)
 
