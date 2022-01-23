@@ -1,6 +1,6 @@
 # Weather-App
 Weather forecast site using the weather API.<br>
-Created with the [open weather api](https://openweathermap.org/api), html ,css ,js ES6,bundeld with Wepback.
+Created with the [open weather api](https://openweathermap.org/api), html ,css ,js ES6, bundeld with Wepback.
 
 ## Features
 * Check the weather for the next 7 days of a choosen city
